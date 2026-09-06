@@ -57,6 +57,35 @@ export function ProductFormModal({
   const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
+    if (isOpen) {
+      if (productToEdit) {
+        setName(productToEdit.name || "");
+        setSku(productToEdit.sku || "");
+        setDescription(productToEdit.description || "");
+        setQuantity(productToEdit.quantity ?? 1);
+        setMinQuantity(productToEdit.minQuantity ?? 0);
+        setCategoryId(productToEdit.categoryId || null);
+        setLocationId(productToEdit.locationId || null);
+        setImageUrl(productToEdit.imageUrl || null);
+        setImageFile(null);
+      } else {
+        setName("");
+        setSku("");
+        setDescription("");
+        setQuantity(1);
+        setMinQuantity(0);
+        setCategoryId(null);
+        setLocationId(null);
+        setImageUrl(null);
+        setImageFile(null);
+      }
+      setErrorMsg(null);
+      setIsCreatingCategory(false);
+      setNewCategoryName("");
+    }
+  }, [isOpen, productToEdit]);
+
+  useEffect(() => {
     setCurrentLocations(locations);
   }, [locations]);
 
