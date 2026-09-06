@@ -1,0 +1,16 @@
+services:
+  gestock:
+    image: ghcr.io/barroso88/gestock:latest
+    container_name: gestock
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:/app/data/gestock.db
+      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+      # Google OAuth 2.0 (Opcional - preencher se pretender usar login com Google)
+      - GOOGLE_CLIENT_ID=
+      - GOOGLE_CLIENT_SECRET=
+    volumes:
+      - ./data:/app/data

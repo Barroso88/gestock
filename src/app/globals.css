@@ -1,0 +1,432 @@
+@import "tailwindcss";
+
+@layer base {
+  /* 1. Definições dos 10 Temas Visuais */
+  :root,
+  [data-theme="homebox"] {
+    --safe-top: env(safe-area-inset-top, 0px);
+    --safe-bottom: env(safe-area-inset-bottom, 0px);
+    --bg-primary: #151016;
+    --bg-sidebar: #161118;
+    --card-surface: #1e1723;
+    --card-surface-secondary: #241b2c;
+    --card-surface-hover: #261d2d;
+    --card-border: #2b2233;
+    --text-main: #f3f0f5;
+    --text-muted: #998e9f;
+    --text-heading: #baaebf;
+    --accent-amber: #f59e0b;
+    --accent-amber-hover: #d97706;
+    --accent-teal: #163737;
+    --accent-teal-text: #2dd4bf;
+    --accent-teal-border: rgba(45, 212, 191, 0.2);
+
+    /* Botão Adicionar & Ações */
+    --btn-primary-bg-from: #f59e0b;
+    --btn-primary-bg-to: #d97706;
+    --btn-primary-hover-from: #fbbf24;
+    --btn-primary-hover-to: #f59e0b;
+    --btn-primary-text: #151016;
+    --btn-primary-shadow: rgba(245, 158, 11, 0.35);
+  }
+
+  [data-theme="cyberpunk"] {
+    --bg-primary: #08080d;
+    --bg-sidebar: #0c0b14;
+    --card-surface: #12111d;
+    --card-surface-secondary: #1a1829;
+    --card-surface-hover: #231f38;
+    --card-border: #3c245c;
+    --text-main: #f0f6fc;
+    --text-muted: #a698be;
+    --text-heading: #00f0ff;
+    --accent-amber: #ff007f;
+    --accent-amber-hover: #e60072;
+    --accent-teal: #042f3a;
+    --accent-teal-text: #00f0ff;
+    --accent-teal-border: rgba(0, 240, 255, 0.35);
+
+    /* Botão Adicionar & Ações: Magenta e Roxo néon vibrantes com texto branco */
+    --btn-primary-bg-from: #ff007f;
+    --btn-primary-bg-to: #9333ea;
+    --btn-primary-hover-from: #ff3399;
+    --btn-primary-hover-to: #a855f7;
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: rgba(255, 0, 127, 0.5);
+  }
+
+  [data-theme="nordic"] {
+    --bg-primary: #242933;
+    --bg-sidebar: #1e222a;
+    --card-surface: #2e3440;
+    --card-surface-secondary: #3b4252;
+    --card-surface-hover: #434c5e;
+    --card-border: #4c566a;
+    --text-main: #eceff4;
+    --text-muted: #94a3b8;
+    --text-heading: #d8dee9;
+    --accent-amber: #88c0d0;
+    --accent-amber-hover: #81a1c1;
+    --accent-teal: #2b3d4a;
+    --accent-teal-text: #8fbcbb;
+    --accent-teal-border: rgba(143, 188, 187, 0.3);
+
+    /* Botão Adicionar & Ações: Azul glacial escandinavo */
+    --btn-primary-bg-from: #88c0d0;
+    --btn-primary-bg-to: #5e81ac;
+    --btn-primary-hover-from: #8fbcbb;
+    --btn-primary-hover-to: #81a1c1;
+    --btn-primary-text: #1b2028;
+    --btn-primary-shadow: rgba(136, 192, 208, 0.4);
+  }
+
+  [data-theme="emerald"] {
+    --bg-primary: #06120b;
+    --bg-sidebar: #091910;
+    --card-surface: #0c2417;
+    --card-surface-secondary: #123623;
+    --card-surface-hover: #18482f;
+    --card-border: #1e593a;
+    --text-main: #ecfdf5;
+    --text-muted: #6ee7b7;
+    --text-heading: #a7f3d0;
+    --accent-amber: #10b981;
+    --accent-amber-hover: #059669;
+    --accent-teal: #064e3b;
+    --accent-teal-text: #34d399;
+    --accent-teal-border: rgba(52, 211, 153, 0.25);
+
+    /* Botão Adicionar & Ações: Verde Esmeralda intenso com texto de alto contraste */
+    --btn-primary-bg-from: #10b981;
+    --btn-primary-bg-to: #059669;
+    --btn-primary-hover-from: #34d399;
+    --btn-primary-hover-to: #10b981;
+    --btn-primary-text: #042211;
+    --btn-primary-shadow: rgba(16, 185, 129, 0.4);
+  }
+
+  [data-theme="sunset"] {
+    --bg-primary: #170d0a;
+    --bg-sidebar: #1f110c;
+    --card-surface: #291711;
+    --card-surface-secondary: #381f17;
+    --card-surface-hover: #4a281e;
+    --card-border: #5c3024;
+    --text-main: #fff7ed;
+    --text-muted: #fdba74;
+    --text-heading: #fed7aa;
+    --accent-amber: #ea580c;
+    --accent-amber-hover: #c2410c;
+    --accent-teal: #431407;
+    --accent-teal-text: #fb923c;
+    --accent-teal-border: rgba(251, 146, 60, 0.3);
+
+    /* Botão Adicionar & Ações: Terracota e Laranja Pôr-do-sol */
+    --btn-primary-bg-from: #ea580c;
+    --btn-primary-bg-to: #c2410c;
+    --btn-primary-hover-from: #f97316;
+    --btn-primary-hover-to: #ea580c;
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: rgba(234, 88, 12, 0.45);
+  }
+
+  [data-theme="sapphire"] {
+    --bg-primary: #060b14;
+    --bg-sidebar: #0a1120;
+    --card-surface: #0e172a;
+    --card-surface-secondary: #162442;
+    --card-surface-hover: #1e3158;
+    --card-border: #274075;
+    --text-main: #f0f9ff;
+    --text-muted: #7dd3fc;
+    --text-heading: #bae6fd;
+    --accent-amber: #0284c7;
+    --accent-amber-hover: #0369a1;
+    --accent-teal: #0c4a6e;
+    --accent-teal-text: #38bdf8;
+    --accent-teal-border: rgba(56, 189, 248, 0.3);
+
+    /* Botão Adicionar & Ações: Azul Safira Real brilhante com texto branco */
+    --btn-primary-bg-from: #0284c7;
+    --btn-primary-bg-to: #0369a1;
+    --btn-primary-hover-from: #38bdf8;
+    --btn-primary-hover-to: #0284c7;
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: rgba(2, 132, 199, 0.45);
+  }
+
+  [data-theme="synthwave"] {
+    --bg-primary: #120721;
+    --bg-sidebar: #18092d;
+    --card-surface: #220e3e;
+    --card-surface-secondary: #2f1454;
+    --card-surface-hover: #3d1b6c;
+    --card-border: #5d25a3;
+    --text-main: #faf5ff;
+    --text-muted: #d8b4fe;
+    --text-heading: #e9d5ff;
+    --accent-amber: #f43f5e;
+    --accent-amber-hover: #e11d48;
+    --accent-teal: #3b0764;
+    --accent-teal-text: #f472b6;
+    --accent-teal-border: rgba(244, 114, 182, 0.3);
+
+    /* Botão Adicionar & Ações: Rosa choque anos 80 e púrpura cosmos */
+    --btn-primary-bg-from: #f43f5e;
+    --btn-primary-bg-to: #a855f7;
+    --btn-primary-hover-from: #fb7185;
+    --btn-primary-hover-to: #c084fc;
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: rgba(244, 63, 94, 0.5);
+  }
+
+  [data-theme="monochrome"] {
+    --bg-primary: #0a0a0a;
+    --bg-sidebar: #121212;
+    --card-surface: #181818;
+    --card-surface-secondary: #222222;
+    --card-surface-hover: #2c2c2c;
+    --card-border: #383838;
+    --text-main: #ffffff;
+    --text-muted: #a1a1aa;
+    --text-heading: #e4e4e7;
+    --accent-amber: #e4e4e7;
+    --accent-amber-hover: #d4d4d8;
+    --accent-teal: #27272a;
+    --accent-teal-text: #ffffff;
+    --accent-teal-border: rgba(255, 255, 255, 0.2);
+
+    /* Botão Adicionar & Ações: Prata escovada e branco de luxo com preto puro */
+    --btn-primary-bg-from: #ffffff;
+    --btn-primary-bg-to: #d4d4d8;
+    --btn-primary-hover-from: #f4f4f5;
+    --btn-primary-hover-to: #e4e4e7;
+    --btn-primary-text: #09090b;
+    --btn-primary-shadow: rgba(255, 255, 255, 0.3);
+  }
+
+  [data-theme="light"] {
+    --bg-primary: #f1f5f9;
+    --bg-sidebar: #e2e8f0;
+    --card-surface: #ffffff;
+    --card-surface-secondary: #f8fafc;
+    --card-surface-hover: #e2e8f0;
+    --card-border: #cbd5e1;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --text-heading: #1e293b;
+    --accent-amber: #d97706;
+    --accent-amber-hover: #b45309;
+    --accent-teal: #e0f2fe;
+    --accent-teal-text: #0284c7;
+    --accent-teal-border: rgba(2, 132, 199, 0.3);
+
+    /* Botão Adicionar & Ações: Âmbar profundo com texto branco */
+    --btn-primary-bg-from: #d97706;
+    --btn-primary-bg-to: #b45309;
+    --btn-primary-hover-from: #f59e0b;
+    --btn-primary-hover-to: #d97706;
+    --btn-primary-text: #ffffff;
+    --btn-primary-shadow: rgba(217, 119, 6, 0.35);
+  }
+
+  [data-theme="cargo"] {
+    --bg-primary: #141619;
+    --bg-sidebar: #1a1d21;
+    --card-surface: #22262b;
+    --card-surface-secondary: #2d3239;
+    --card-surface-hover: #393f48;
+    --card-border: #4a525f;
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-heading: #cbd5e1;
+    --accent-amber: #eab308;
+    --accent-amber-hover: #ca8a04;
+    --accent-teal: #332d18;
+    --accent-teal-text: #fde047;
+    --accent-teal-border: rgba(253, 224, 71, 0.25);
+
+    /* Botão Adicionar & Ações: Amarelo de segurança industrial de alta visibilidade */
+    --btn-primary-bg-from: #eab308;
+    --btn-primary-bg-to: #ca8a04;
+    --btn-primary-hover-from: #facc15;
+    --btn-primary-hover-to: #eab308;
+    --btn-primary-text: #141619;
+    --btn-primary-shadow: rgba(234, 179, 8, 0.45);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-main);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+    overscroll-behavior-y: contain;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    transition: background-color 0.25s ease, color 0.25s ease;
+  }
+
+  /* Prevenir zoom acidental ao focar inputs no iOS Safari */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+
+  /* Scrollbar dinâmica que herda do tema */
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-primary);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--card-border);
+    border-radius: 9999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--card-surface-hover);
+  }
+}
+
+/* 2. Mapeamento Universal de Classes para os 10 Temas */
+[data-theme] {
+  background-color: var(--bg-primary);
+  color: var(--text-main);
+}
+
+/* Fundos */
+[data-theme] .bg-\[\#151016\] {
+  background-color: var(--bg-primary) !important;
+}
+[data-theme] .bg-\[\#161118\] {
+  background-color: var(--bg-sidebar) !important;
+}
+[data-theme] .bg-\[\#1e1723\] {
+  background-color: var(--card-surface) !important;
+}
+[data-theme] .bg-\[\#241b2c\],
+[data-theme] .bg-\[\#251c2c\],
+[data-theme] .bg-\[\#261d2d\],
+[data-theme] .bg-\[\#231b29\] {
+  background-color: var(--card-surface-secondary) !important;
+}
+
+/* Hovers de Fundo */
+[data-theme] .hover\:bg-\[\#251c2c\]:hover,
+[data-theme] .hover\:bg-\[\#261d2d\]:hover,
+[data-theme] .hover\:bg-\[\#201825\]:hover,
+[data-theme] .hover\:bg-\[\#2e2336\]:hover {
+  background-color: var(--card-surface-hover) !important;
+}
+
+/* Bordas & Divisórias */
+[data-theme] .border-\[\#2b2233\],
+[data-theme] .border-\[\#2b2233\]\/60,
+[data-theme] .border-\[\#2b2233\]\/50,
+[data-theme] .border-\[\#2b2233\]\/40,
+[data-theme] .border-\[\#2b2233\]\/70,
+[data-theme] .border-\[\#3d2c49\] {
+  border-color: var(--card-border) !important;
+}
+[data-theme] .divide-\[\#2b2233\] > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--card-border) !important;
+}
+
+/* Tipografia */
+[data-theme] .text-\[\#f3f0f5\] {
+  color: var(--text-main) !important;
+}
+[data-theme] .text-\[\#baaebf\] {
+  color: var(--text-heading) !important;
+}
+[data-theme] .text-\[\#998e9f\],
+[data-theme] .text-\[\#84778b\],
+[data-theme] .text-\[\#4a3a54\] {
+  color: var(--text-muted) !important;
+}
+
+/* Cores de Acento (Destaque Primário nos Textos e Bordas) */
+[data-theme] .text-\[\#f59e0b\] {
+  color: var(--accent-amber) !important;
+}
+[data-theme] .hover\:text-\[\#f59e0b\]:hover {
+  color: var(--accent-amber-hover) !important;
+}
+[data-theme] .border-\[\#f59e0b\] {
+  border-color: var(--accent-amber) !important;
+}
+[data-theme] .border-\[\#f59e0b\]\/50 {
+  border-color: var(--accent-amber) !important;
+}
+[data-theme] .hover\:border-\[\#f59e0b\]\/50:hover {
+  border-color: var(--accent-amber) !important;
+}
+[data-theme] .ring-\[\#f59e0b\]\/60 {
+  --tw-ring-color: var(--accent-amber) !important;
+}
+[data-theme] .bg-\[\#f59e0b\]\/20 {
+  background-color: color-mix(in srgb, var(--accent-amber) 20%, transparent) !important;
+}
+
+/* 3. Estilização dos Botões de Ação Principal ("Adicionar", "Guardar", etc.) */
+[data-theme] .bg-gradient-to-r.from-\[\#f59e0b\].to-\[\#d97706\],
+[data-theme] .bg-gradient-to-br.from-\[\#f59e0b\].to-\[\#d97706\],
+[data-theme] .bg-\[\#f59e0b\] {
+  background-image: linear-gradient(135deg, var(--btn-primary-bg-from), var(--btn-primary-bg-to)) !important;
+  background-color: var(--btn-primary-bg-from) !important;
+  color: var(--btn-primary-text) !important;
+  box-shadow: 0 4px 14px 0 var(--btn-primary-shadow) !important;
+}
+
+[data-theme] .bg-gradient-to-r.from-\[\#f59e0b\].to-\[\#d97706\]:hover,
+[data-theme] .bg-gradient-to-br.from-\[\#f59e0b\].to-\[\#d97706\]:hover,
+[data-theme] .bg-\[\#f59e0b\]:hover {
+  background-image: linear-gradient(135deg, var(--btn-primary-hover-from), var(--btn-primary-hover-to)) !important;
+}
+
+/* Garantir 100% de contraste e visibilidade dos textos e ícones dentro do botão */
+[data-theme] .bg-gradient-to-r.from-\[\#f59e0b\].to-\[\#d97706\] *,
+[data-theme] .bg-gradient-to-br.from-\[\#f59e0b\].to-\[\#d97706\] *,
+[data-theme] .bg-\[\#f59e0b\] * {
+  color: var(--btn-primary-text) !important;
+  stroke: var(--btn-primary-text) !important;
+}
+
+/* Destaque Ativo Secundário (Teal no menu / rotas ativas) */
+[data-theme] .text-\[\#2dd4bf\] {
+  color: var(--accent-teal-text) !important;
+}
+[data-theme] .bg-\[\#163737\] {
+  background-color: var(--accent-teal) !important;
+}
+[data-theme] .border-\[\#2dd4bf\]\/20 {
+  border-color: var(--accent-teal-border) !important;
+}
+
+/* Ajustes específicos para o Tema Claro (Clean Slate Light) */
+[data-theme="light"] input,
+[data-theme="light"] select,
+[data-theme="light"] textarea {
+  color: #0f172a !important;
+  background-color: #ffffff !important;
+}
+[data-theme="light"] input::placeholder,
+[data-theme="light"] textarea::placeholder {
+  color: #94a3b8 !important;
+}
+[data-theme="light"] .shadow-inner {
+  box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05) !important;
+}
+
+/* Otimização de scroll suave em listas compridas */
+.smooth-scroll {
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Esconder barra de scroll em carrosséis horizontais de tags */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}

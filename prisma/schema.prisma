@@ -1,0 +1,104 @@
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model StorageLocation {
+  id          String   @id @default(cuid())
+  name        String
+  code        String?  @unique
+  description String?
+  type        String   @default("SHELF") // WAREHOUSE, ZONE, AISLE, RACK, SHELF, BIN
+  
+  // Hierarquia auto-referencial
+  parentId    String?
+  parent      StorageLocation?  @relation("LocationHierarchy", fields: [parentId], references: [id], onDelete: Cascade)
+  children    StorageLocation[] @relation("LocationHierarchy")
+  
+  // Caminho materializado: ex: "/Armazém A/Estante 2/Prateleira B"
+  fullPath    String
+  depth       Int      @default(0)
+
+  products    Product[]
+  movementsFrom StockMovement[] @relation("MoveFrom")
+  movementsTo   StockMovement[] @relation("MoveTo")
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  slug        String    @unique
+  color       String?   @default("#3b82f6")
+  icon        String?   @default("Folder")
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  sku         String?  @unique
+  description String?
+  quantity    Int      @default(0)
+  minQuantity Int      @default(0)
+
+  imageUrl     String?
+  thumbnailUrl String?
+
+  categoryId  String?
+  category    Category? @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+
+  locationId  String?
+  location    StorageLocation? @relation(fields: [locationId], references: [id], onDelete: SetNull)
+
+  movements   StockMovement[]
+
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model StockMovement {
+  id             String          @id @default(cuid())
+  productId      String
+  product        Product         @relation(fields: [productId], references: [id], onDelete: Cascade)
+  type           String          // "IN", "OUT", "TRANSFER", "AUDIT"
+  quantityDelta  Int
+  quantityAfter  Int
+  
+  fromLocationId String?
+  fromLocation   StorageLocation? @relation("MoveFrom", fields: [fromLocationId], references: [id])
+  
+  toLocationId   String?
+  toLocation     StorageLocation? @relation("MoveTo", fields: [toLocationId], references: [id])
+
+  note           String?
+  createdAt      DateTime        @default(now())
+}
+
+model User {
+  id        String    @id @default(cuid())
+  email     String    @unique
+  name      String?
+  image     String?
+  role      String    @default("ADMIN") // ADMIN, VIEWER
+  sessions  Session[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  expiresAt    DateTime
+  createdAt    DateTime @default(now())
+}

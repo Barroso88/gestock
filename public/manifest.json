@@ -1,0 +1,18 @@
+{
+  "name": "Gestock — Gestão de Inventário",
+  "short_name": "Gestock",
+  "description": "Sistema de Gestão de Inventário e Arrumação Dinâmica com Câmara Nativa",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#2563eb",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/mainicon.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
