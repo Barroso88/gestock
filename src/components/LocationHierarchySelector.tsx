@@ -88,9 +88,12 @@ export function LocationHierarchySelector({
     setIsCreatingInline(true);
   };
 
-  const handleSaveNewLocation = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!newLocName.trim()) return;
+  const handleSaveNewLocation = async (e?: React.SyntheticEvent) => {
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    if (!newLocName.trim() || isSubmittingNew) return;
 
     setIsSubmittingNew(true);
     setNewLocError(null);
@@ -214,7 +217,7 @@ export function LocationHierarchySelector({
             {/* VISTA 1: CRIAÇÃO RÁPIDA DE NOVO LOCAL DENTRO DO MODAL          */}
             {/* ============================================================== */}
             {isCreatingInline ? (
-              <form onSubmit={handleSaveNewLocation} className="space-y-3.5 my-3 overflow-y-auto max-h-[65vh]">
+              <div className="space-y-3.5 my-3 overflow-y-auto max-h-[65vh]">
                 {newLocError && (
                   <div className="p-3 bg-rose-950/60 border border-rose-800 text-rose-300 text-xs rounded-xl flex items-center gap-2">
                     <AlertCircle className="w-4 h-4 shrink-0" />
@@ -232,6 +235,13 @@ export function LocationHierarchySelector({
                     autoFocus
                     value={newLocName}
                     onChange={(e) => setNewLocName(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleSaveNewLocation(e);
+                      }
+                    }}
                     placeholder="Ex: Prateleira 4C ou Gaveta A1"
                     className="w-full px-3.5 py-2.5 rounded-xl border border-[#2b2233] bg-[#151016] text-[#f3f0f5] text-sm focus:border-[#f59e0b] outline-hidden"
                   />
@@ -263,6 +273,13 @@ export function LocationHierarchySelector({
                       type="text"
                       value={newLocCode}
                       onChange={(e) => setNewLocCode(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleSaveNewLocation(e);
+                        }
+                      }}
                       placeholder="Ex: P4C"
                       className="w-full px-3.5 py-2.5 rounded-xl border border-[#2b2233] bg-[#151016] text-[#f3f0f5] text-sm font-mono outline-hidden"
                     />
@@ -301,7 +318,8 @@ export function LocationHierarchySelector({
                     Cancelar
                   </button>
                   <button
-                    type="submit"
+                    type="button"
+                    onClick={handleSaveNewLocation}
                     disabled={isSubmittingNew}
                     className="flex-2 py-3 px-4 rounded-xl bg-gradient-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] text-[#151016] font-bold text-xs flex items-center justify-center gap-1.5 shadow-md shadow-[#f59e0b]/20 cursor-pointer"
                   >
@@ -315,7 +333,7 @@ export function LocationHierarchySelector({
                     )}
                   </button>
                 </div>
-              </form>
+              </div>
             ) : (
               /* ============================================================== */
               /* VISTA 2: NAVEGAÇÃO & SELEÇÃO DE LOCAIS EXISTENTES              */

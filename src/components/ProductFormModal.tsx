@@ -300,6 +300,13 @@ export function ProductFormModal({
                       autoFocus
                       value={newCategoryName}
                       onChange={(e) => setNewCategoryName(e.target.value)}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                          e.preventDefault();
+                          e.stopPropagation();
+                          handleQuickCreateCategory(e);
+                        }
+                      }}
                       placeholder="Nome da categoria..."
                       className="w-full px-3 py-2 text-xs rounded-lg border border-[#2b2233] bg-[#151016] text-[#f3f0f5] focus:outline-hidden focus:border-[#f59e0b]"
                     />

@@ -21,7 +21,7 @@ Este guia explica como instalar o **Gestock** no Unraid utilizando a imagem ofic
 2. Preencha os seguintes campos:
    - **Name**: `gestock`
    - **Repository**: `ghcr.io/barroso88/gestock:latest`
-   - **Icon URL**: `https://raw.githubusercontent.com/Barroso88/gestock/main/public/icon.png`
+   - **Icon URL**: `https://raw.githubusercontent.com/Barroso88/gestock/main/public/mainicon.png`
    - **WebUI**: `http://[IP]:[PORT:3000]`
 3. Adicionar **Porta**:
    - Clique em **+ Add another Path, Port, Variable, Device or Label**

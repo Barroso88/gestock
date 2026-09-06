@@ -32,6 +32,10 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# Unraid Docker template metadata labels
+LABEL net.unraid.docker.icon="https://raw.githubusercontent.com/Barroso88/gestock/main/public/mainicon.png"
+LABEL net.unraid.docker.webui="http://[IP]:[PORT:3000]"
+
 # Install Prisma CLI globally for reliable schema synchronization
 RUN npm install -g prisma@6.19.3
 
