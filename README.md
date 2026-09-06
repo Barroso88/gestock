@@ -10,7 +10,8 @@
 [![React](https://img.shields.io/badge/React-19-61dafb?logo=react&logoColor=black)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178c6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-38bdf8?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![Prisma](https://img.shields.io/badge/Prisma-SQLite-2d3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2d3748?logo=prisma&logoColor=white)](https://www.prisma.io/)
 
 <p align="center">
   Uma aplicação web e PWA rápida, bonita e intuitiva inspirada no design HomeBox, desenvolvida para organizar caixas, ferramentas, material eletrónico e itens domésticos com fotografias reais, navegação por divisão e sincronização instantânea.
@@ -75,7 +76,7 @@
 - **📱 PWA (Progressive Web App)**:
   - Instalável como app nativa no iPhone (iOS) e Android através de `Adicionar ao ecrã principal`.
 - **🐳 Multi-Stage Docker Standalone**:
-  - Imagem ultraleve baseada em `node:20-alpine` com inicialização automática do esquema SQLite.
+  - Imagem ultraleve baseada em `node:20-alpine` com PostgreSQL (compatível com pgAdmin) e inicialização automática do esquema.
 
 ---
 
@@ -101,7 +102,7 @@ Consulte o guia completo em [UNRAID.md](UNRAID.md).
   * `NEXT_PUBLIC_APP_URL` (ex: `http://192.168.1.100:3000`)
 
 > [!TIP]
-> Todos os ficheiros da base de dados (`gestock.db`) e as fotografias carregadas (`uploads/`) são guardados na pasta persistente `/mnt/user/appdata/gestock`, garantindo que atualizar a imagem do container **nunca** apaga os seus dados!
+> Os dados ficam centralizados no seu PostgreSQL (com gestão no pgAdmin) e as fotografias carregadas (`uploads/`) são guardadas na pasta persistente `/mnt/user/appdata/gestock`, garantindo que atualizar o container **nunca** apaga imagens!
 
 ---
 
@@ -119,7 +120,7 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:/app/data/gestock.db
+      - DATABASE_URL=postgresql://gestock_user:senha_segura@192.168.1.67:5432/gestock?schema=public
       - NEXT_PUBLIC_APP_URL=http://localhost:3000
       # Opcional (Google OAuth):
       # - GOOGLE_CLIENT_ID=
@@ -155,7 +156,7 @@ npm install
 # 3. Configurar variáveis de ambiente
 cp .env.example .env
 
-# 4. Inicializar base de dados SQLite
+# 4. Inicializar base de dados PostgreSQL
 npm run db:push
 
 # 5. Iniciar servidor de desenvolvimento
@@ -172,7 +173,7 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 ├── docs/
 │   └── screenshots/            # Capturas de ecrã para documentação
 ├── prisma/
-│   ├── schema.prisma           # Esquema da base de dados SQLite
+│   ├── schema.prisma           # Esquema da base de dados PostgreSQL
 │   └── seed.js                 # Dados de exemplo para inicialização
 ├── public/                     # Ficheiros estáticos, ícones e PWA Manifest
 ├── src/

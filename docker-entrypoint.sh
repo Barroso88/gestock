@@ -1,12 +1,7 @@
 #!/bin/sh
 set -e
 
-# Default DATABASE_URL to persistent volume if not provided
-if [ -z "$DATABASE_URL" ]; then
-  export DATABASE_URL="file:/app/data/gestock.db"
-fi
-
-# Ensure data directory and uploads folder exist
+# Ensure data directory and uploads folder exist for persistent image storage
 mkdir -p /app/data/uploads
 
 # Link uploads directory so Next.js serves and writes from the persistent volume
@@ -16,9 +11,13 @@ if [ ! -L /app/public/uploads ]; then
   ln -s /app/data/uploads /app/public/uploads
 fi
 
-# Push schema changes to the SQLite database
-echo "Synchronizing database schema to ${DATABASE_URL}..."
-node ./node_modules/prisma/build/index.js db push --skip-generate || echo "Database push notice: schema verified."
+# Push schema changes to PostgreSQL database
+if [ -n "$DATABASE_URL" ]; then
+  echo "Synchronizing PostgreSQL schema with Prisma..."
+  node ./node_modules/prisma/build/index.js db push --skip-generate || echo "Database push notice: schema verified."
+else
+  echo "WARNING: DATABASE_URL is not set. Please provide a valid PostgreSQL connection string."
+fi
 
 # Execute main process (node server.js)
 exec "$@"

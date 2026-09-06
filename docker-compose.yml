@@ -7,10 +7,12 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=file:/app/data/gestock.db
-      - NEXT_PUBLIC_APP_URL=http://localhost:3000
+      # Configurar com o utilizador, password e IP da sua base de dados PostgreSQL no Unraid
+      - DATABASE_URL=postgresql://gestock_user:senha_segura@192.168.1.67:5432/gestock?schema=public
+      - NEXT_PUBLIC_APP_URL=http://192.168.1.67:3000
       # Google OAuth 2.0 (Opcional - preencher se pretender usar login com Google)
       - GOOGLE_CLIENT_ID=
       - GOOGLE_CLIENT_SECRET=
     volumes:
+      # Armazenamento persistente para fotos carregadas dos produtos
       - ./data:/app/data

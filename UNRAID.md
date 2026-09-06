@@ -1,79 +1,55 @@
-# Guia de Instalação no Unraid - Gestock
+# Guia de Instalação no Unraid com PostgreSQL - Gestock
 
-Este guia explica como instalar o **Gestock** no Unraid utilizando a imagem oficial gerada pelo GitHub Container Registry (`ghcr.io/barroso88/gestock:latest`).
+Este guia explica como instalar o **Gestock** no Unraid utilizando a imagem oficial gerada pelo GitHub Container Registry (`ghcr.io/barroso88/gestock:latest`) ligada à sua base de dados **PostgreSQL** (gerida no pgAdmin).
 
 ---
 
-## 1. Mapeamento de Volumes e Portas
+## 1. Mapeamento de Volumes, Portas e Variáveis
 
 | Parâmetro | Valor / Caminho | Descrição |
 | :--- | :--- | :--- |
-| **Imagem Docker** | `ghcr.io/barroso88/gestock:latest` | Imagem gerada automaticamente pelo GitHub |
-| **Porta (Host:Container)** | `3000:3000` | Acesso web ao Gestock (ex: `http://IP_DO_UNRAID:3000`) |
-| **Volume de Dados** | `/mnt/user/appdata/gestock` : `/app/data` | Persistência da base de dados SQLite (`gestock.db`) e fotos carregadas (`uploads/`) |
+| **Imagem Docker** | `ghcr.io/barroso88/gestock:latest` | Imagem oficial gerada pelo GitHub Actions |
+| **Porta Web (Host:Container)** | `3000:3000` | Acesso web ao Gestock (ex: `http://IP_DO_UNRAID:3000`) |
+| **Volume de Fotos** | `/mnt/user/appdata/gestock` : `/app/data` | Persistência das fotos carregadas dos produtos (`/app/data/uploads`) |
+| **Variável `DATABASE_URL`** | `postgresql://USER:PASSWORD@IP_UNRAID:5432/gestock?schema=public` | String de conexão à sua base de dados PostgreSQL |
 
 ---
 
-## 2. Método 1: Adicionar Container pelo Unraid (Interface Gráfica)
+## 2. Passo a Passo no Unraid (Interface Gráfica)
 
-1. No Unraid, vá ao separador **Docker** e clique no fundo da página em **Add Container** ("Adicionar Container").
+1. No Unraid, aceda ao separador **Docker** e clique no fundo em **Add Container** ("Adicionar Container").
 2. Preencha os seguintes campos:
    - **Name**: `gestock`
    - **Repository**: `ghcr.io/barroso88/gestock:latest`
-   - **Icon URL**: `https://raw.githubusercontent.com/Barroso88/gestock/main/public/icon.png` (ou deixar em branco)
+   - **Icon URL**: `https://raw.githubusercontent.com/Barroso88/gestock/main/public/icon.png`
    - **WebUI**: `http://[IP]:[PORT:3000]`
 3. Adicionar **Porta**:
    - Clique em **+ Add another Path, Port, Variable, Device or Label**
    - Config Type: `Port`
    - Name: `Porta Web`
    - Container Port: `3000`
-   - Host Port: `3000` (ou outra livre no Unraid, ex: `3005`)
-4. Adicionar **Caminho / Volume (Storage Persistente)**:
+   - Host Port: `3000` (ou outra livre, ex: `3005`)
+   - Clique em **Add**
+4. Adicionar **Volume de Fotos (Persistência)**:
    - Clique em **+ Add another Path, Port, Variable, Device or Label**
    - Config Type: `Path`
-   - Name: `Appdata Storage`
+   - Name: `Armazenamento de Fotos`
    - Container Path: `/app/data`
    - Host Path: `/mnt/user/appdata/gestock`
-5. Adicionar **Variáveis de Ambiente (Opcional)**:
-   - Se quiser autenticação Google:
-     - `GOOGLE_CLIENT_ID`: seu Client ID do Google Cloud Console
-     - `GOOGLE_CLIENT_SECRET`: seu Client Secret do Google Cloud Console
-     - `NEXT_PUBLIC_APP_URL`: URL de acesso (ex: `http://192.168.1.50:3000`)
-6. Clique em **Apply** ("Aplicar"). O Unraid fará o download da imagem e iniciará o container automaticamente.
-
----
-
-## 3. Método 2: Via Docker Compose (Plugin Compose Manager no Unraid)
-
-Se utilizar o plugin **Docker Compose Manager** no Unraid, crie uma stack com:
-
-```yaml
-version: '3.8'
-
-services:
-  gestock:
-    image: ghcr.io/barroso88/gestock:latest
-    container_name: gestock
-    restart: unless-stopped
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - DATABASE_URL=file:/app/data/gestock.db
-      - NEXT_PUBLIC_APP_URL=http://[IP_DO_UNRAID]:3000
-      # Opcional para login Google:
-      # - GOOGLE_CLIENT_ID=
-      # - GOOGLE_CLIENT_SECRET=
-    volumes:
-      - /mnt/user/appdata/gestock:/app/data
-```
-
----
-
-## 4. Atualizações Automáticas
-
-Sempre que fizer um commit/push na branch `main` do repositório GitHub, a GitHub Action compila uma nova imagem e envia para `ghcr.io/barroso88/gestock:latest`.
-
-No Unraid:
-- Pode atualizar clicando em **Check for Updates** no separador Docker ou usar o plugin **Watchtower** / **Docker Auto Update**.
-- Como todos os dados e imagens estão em `/mnt/user/appdata/gestock`, atualizar o container nunca apaga produtos nem dados existentes!
+   - Access Mode: `Read/Write`
+   - Clique em **Add**
+5. Adicionar **Variável de Conexão PostgreSQL (Obrigatório)**:
+   - Clique em **+ Add another Path, Port, Variable, Device or Label**
+   - Config Type: `Variable`
+   - Name: `DATABASE_URL`
+   - Key: `DATABASE_URL`
+   - Value: `postgresql://UTILIZADOR:PASSWORD@IP_DO_UNRAID:5432/NOME_DA_BD?schema=public`
+     *(Substitua com o utilizador, password e nome da base de dados que criou no pgAdmin)*
+   - Clique em **Add**
+6. *(Opcional)* Adicionar Variáveis para Login Google:
+   - `GOOGLE_CLIENT_ID`: seu Client ID
+   - `GOOGLE_CLIENT_SECRET`: seu Client Secret
+   - `NEXT_PUBLIC_APP_URL`: ex: `http://192.168.1.67:3000`
+7. Clique em **Apply** ("Aplicar"). O Unraid irá puxar a imagem e arrancar o container.
+   * O container liga-se automaticamente à base de dados PostgreSQL e cria todas as tabelas na primeira execução!
+   * Pode abrir o seu **pgAdmin** e verificar imediatamente todas as tabelas criadas no schema `public`.
