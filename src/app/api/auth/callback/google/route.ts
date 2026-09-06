@@ -3,9 +3,11 @@ import {
   exchangeGoogleCode,
   getGoogleUserProfile,
   createOrUpdateUserAndSession,
+  getBaseUrl,
 } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
+  const baseUrl = getBaseUrl(request);
   const searchParams = request.nextUrl.searchParams;
   const code = searchParams.get("code");
   const error = searchParams.get("error");
@@ -14,13 +16,13 @@ export async function GET(request: NextRequest) {
   if (error || !code) {
     console.error("Erro no callback do Google OAuth:", error);
     return NextResponse.redirect(
-      new URL(`/login?error=${encodeURIComponent(error || "no_code")}`, request.url)
+      new URL(`/login?error=${encodeURIComponent(error || "no_code")}`, baseUrl)
     );
   }
 
   try {
     // 1. Troca o código pelo access_token
-    const tokens = await exchangeGoogleCode(code);
+    const tokens = await exchangeGoogleCode(code, baseUrl);
 
     // 2. Obtém os dados de perfil da Google
     const profile = await getGoogleUserProfile(tokens.access_token);
@@ -37,11 +39,11 @@ export async function GET(request: NextRequest) {
     });
 
     const destination = state.startsWith("/") ? state : "/";
-    return NextResponse.redirect(new URL(destination, request.url));
+    return NextResponse.redirect(new URL(destination, baseUrl));
   } catch (err: any) {
     console.error("Falha ao autenticar com a Google:", err);
     return NextResponse.redirect(
-      new URL(`/login?error=${encodeURIComponent(err.message || "auth_failed")}`, request.url)
+      new URL(`/login?error=${encodeURIComponent(err.message || "auth_failed")}`, baseUrl)
     );
   }
 }

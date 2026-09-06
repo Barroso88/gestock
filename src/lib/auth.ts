@@ -9,6 +9,8 @@ const GOOGLE_USERINFO_URL = "https://www.googleapis.com/oauth2/v3/userinfo";
 export const SESSION_COOKIE_NAME = "gestock_session";
 const SESSION_DURATION_DAYS = 30;
 
+import { NextRequest } from "next/server";
+
 export function isGoogleAuthConfigured(): boolean {
   return (
     !!process.env.GOOGLE_CLIENT_ID &&
@@ -18,17 +20,34 @@ export function isGoogleAuthConfigured(): boolean {
   );
 }
 
-export function getRedirectUri(): string {
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000";
-  return `${baseUrl.replace(/\/$/, "")}/api/auth/callback/google`;
+export function getBaseUrl(request?: NextRequest): string {
+  const envUrl = process.env.NEXT_PUBLIC_APP_URL || process.env.APP_URL;
+  if (envUrl && envUrl.trim().length > 0) {
+    return envUrl.trim().replace(/\/$/, "");
+  }
+
+  if (request) {
+    const proto = request.headers.get("x-forwarded-proto") || "https";
+    const host = request.headers.get("x-forwarded-host") || request.headers.get("host");
+    if (host && !host.startsWith("0.0.0.0") && !host.startsWith("127.0.0.1") && host !== "localhost") {
+      return `${proto}://${host}`;
+    }
+  }
+
+  return "https://stock.barrosoportal.com";
+}
+
+export function getRedirectUri(request?: NextRequest, customBaseUrl?: string): string {
+  const baseUrl = customBaseUrl || getBaseUrl(request);
+  return `${baseUrl}/api/auth/callback/google`;
 }
 
 /**
  * Gera a URL oficial de consentimento da Google para OAuth 2.0
  */
-export function getGoogleAuthUrl(state?: string): string {
+export function getGoogleAuthUrl(state?: string, customBaseUrl?: string): string {
   const clientId = process.env.GOOGLE_CLIENT_ID || "";
-  const redirectUri = getRedirectUri();
+  const redirectUri = getRedirectUri(undefined, customBaseUrl);
 
   const params = new URLSearchParams({
     client_id: clientId,
@@ -49,13 +68,13 @@ export function getGoogleAuthUrl(state?: string): string {
 /**
  * Troca o código de autorização da Google pelo token de acesso
  */
-export async function exchangeGoogleCode(code: string): Promise<{
+export async function exchangeGoogleCode(code: string, customBaseUrl?: string): Promise<{
   access_token: string;
   id_token?: string;
 }> {
   const clientId = process.env.GOOGLE_CLIENT_ID || "";
   const clientSecret = process.env.GOOGLE_CLIENT_SECRET || "";
-  const redirectUri = getRedirectUri();
+  const redirectUri = getRedirectUri(undefined, customBaseUrl);
 
   const res = await fetch(GOOGLE_TOKEN_URL, {
     method: "POST",

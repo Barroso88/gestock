@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
-import { logoutUser } from "@/lib/auth";
+import { logoutUser, getBaseUrl } from "@/lib/auth";
 
 export async function GET(request: NextRequest) {
   await logoutUser();
-  return NextResponse.redirect(new URL("/login", request.url));
+  return NextResponse.redirect(new URL("/login", getBaseUrl(request)));
 }
 
 export async function POST(request: NextRequest) {
