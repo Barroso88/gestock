@@ -178,7 +178,7 @@ export function InventoryGallery({
 
       {/* Conteúdo com margem adaptativa */}
       <div
-        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-12 w-full max-w-full min-w-0 overflow-x-hidden ${
+        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-12 min-w-0 ${
           isSidebarExpanded ? "md:ml-60" : "md:ml-16"
         }`}
       >

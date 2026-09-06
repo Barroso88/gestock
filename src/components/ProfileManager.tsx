@@ -308,7 +308,7 @@ export function ProfileManager({
 
       {/* Conteúdo com margem adaptativa */}
       <div
-        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-16 w-full max-w-full min-w-0 overflow-x-hidden ${
+        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-16 min-w-0 ${
           isSidebarExpanded ? "md:ml-60" : "md:ml-16"
         }`}
       >
