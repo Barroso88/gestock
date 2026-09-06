@@ -32,6 +32,9 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+# Install Prisma CLI globally for reliable schema synchronization
+RUN npm install -g prisma@6.19.3
+
 # Ensure data directory
 RUN mkdir -p /app/data/uploads
 
@@ -39,10 +42,6 @@ RUN mkdir -p /app/data/uploads
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/package.json ./package.json
-
-# Copy Prisma CLI and engines for entrypoint schema sync
-COPY --from=builder /app/node_modules/prisma ./node_modules/prisma
-COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Copy Next.js standalone output
 COPY --from=builder /app/.next/standalone ./

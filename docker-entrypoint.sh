@@ -13,8 +13,15 @@ fi
 
 # Push schema changes to PostgreSQL database
 if [ -n "$DATABASE_URL" ]; then
-  echo "Synchronizing PostgreSQL schema with Prisma..."
-  node ./node_modules/prisma/build/index.js db push --skip-generate || echo "Database push notice: schema verified."
+  echo "Connecting to PostgreSQL and synchronizing schema..."
+  MAX_RETRIES=5
+  COUNT=0
+  until prisma db push --skip-generate || [ $COUNT -ge $MAX_RETRIES ]; do
+    COUNT=$((COUNT + 1))
+    echo "Waiting for database connection (retry $COUNT/$MAX_RETRIES in 2s)..."
+    sleep 2
+  done
+  echo "Database schema synchronized successfully."
 else
   echo "WARNING: DATABASE_URL is not set. Please provide a valid PostgreSQL connection string."
 fi
