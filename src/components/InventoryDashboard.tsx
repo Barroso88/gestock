@@ -24,6 +24,7 @@ import { QuickStockAdjuster } from "./QuickStockAdjuster";
 import { SearchModal } from "./SearchModal";
 import { ConfirmationModal } from "./ConfirmationModal";
 import { HomeBoxSidebar } from "./HomeBoxSidebar";
+import { UserHeaderBadge } from "./UserHeaderBadge";
 import { deleteProduct } from "@/actions/inventory-actions";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
@@ -171,8 +172,8 @@ export function InventoryDashboard({
               <GlobalInventorySearch onSelectProduct={handleSelectFromSearch} />
             </div>
 
-            {/* Botão Adicionar no Header */}
-            <div className="flex items-center gap-2">
+            {/* Botão Adicionar no Header & Avatar/Nome no Canto Superior Direito */}
+            <div className="flex items-center gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={handleOpenAdd}
@@ -181,6 +182,7 @@ export function InventoryDashboard({
                 <Plus className="w-4 h-4 stroke-[3] text-current" />
                 <span className="hidden sm:inline">Adicionar</span>
               </button>
+              <UserHeaderBadge />
             </div>
           </div>
         </header>

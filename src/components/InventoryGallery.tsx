@@ -25,6 +25,7 @@ import { QuickStockAdjuster } from "./QuickStockAdjuster";
 import { SearchModal } from "./SearchModal";
 import { ConfirmationModal } from "./ConfirmationModal";
 import { HomeBoxSidebar } from "./HomeBoxSidebar";
+import { UserHeaderBadge } from "./UserHeaderBadge";
 import { deleteProduct } from "@/actions/inventory-actions";
 import { useRouter } from "next/navigation";
 
@@ -206,9 +207,9 @@ export function InventoryGallery({
               </div>
             </div>
 
-            {/* Ação Adicionar */}
-            <div className="flex items-center gap-2">
-              <span className="text-xs text-[#998e9f] hidden sm:inline">
+            {/* Ação Adicionar & Avatar/Nome no Canto Superior Direito */}
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="text-xs text-[#998e9f] hidden lg:inline">
                 {processedProducts.length} {processedProducts.length === 1 ? "artigo" : "artigos"}
               </span>
               <button
@@ -219,6 +220,7 @@ export function InventoryGallery({
                 <Plus className="w-4 h-4 stroke-[3] text-current" />
                 <span>Adicionar</span>
               </button>
+              <UserHeaderBadge />
             </div>
           </div>
         </header>

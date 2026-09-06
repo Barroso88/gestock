@@ -27,6 +27,7 @@ import {
 } from "lucide-react";
 import { ProductItem, CategoryItem, StorageLocationItem } from "@/lib/types";
 import { HomeBoxSidebar } from "./HomeBoxSidebar";
+import { UserHeaderBadge } from "./UserHeaderBadge";
 import { ProductFormModal } from "./ProductFormModal";
 import { SearchModal } from "./SearchModal";
 import { ConfirmationModal } from "./ConfirmationModal";
@@ -342,7 +343,7 @@ export function ProfileManager({
               </div>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 sm:gap-3">
               <button
                 type="button"
                 onClick={() => setIsScreenLocked(true)}
@@ -352,6 +353,7 @@ export function ProfileManager({
                 <Lock className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Bloquear</span>
               </button>
+              <UserHeaderBadge />
             </div>
           </div>
         </header>

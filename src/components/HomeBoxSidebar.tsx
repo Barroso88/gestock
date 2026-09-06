@@ -109,47 +109,27 @@ export function HomeBoxSidebar({
 
   const sidebarContent = (
     <div className="flex flex-col h-full bg-[#161118] text-[#f3f0f5] border-r border-[#2b2233] select-none">
-      {/* 1. Área Superior: Hamburguer no topo esquerdo & Perfil */}
+      {/* 1. Área Superior: Hamburguer no topo esquerdo */}
       <div className={`pt-3.5 pb-3.5 border-b border-[#2b2233]/60 transition-all ${isExpanded ? "px-3.5" : "px-2 flex flex-col items-center"}`}>
         {isExpanded ? (
-          <div>
-            {/* Linha de topo: Hamburguer à esquerda + Nome + Fechar Mobile */}
-            <div className="flex items-center justify-between gap-2.5">
-              <button
-                type="button"
-                onClick={onToggleExpand}
-                className="w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shrink-0"
-                title="Comprimir Menu Lateral (Só Ícones)"
-              >
-                <Menu className="w-7 h-7" />
-              </button>
+          <div className="flex items-center justify-between">
+            <button
+              type="button"
+              onClick={onToggleExpand}
+              className="w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shrink-0"
+              title="Comprimir Menu Lateral (Só Ícones)"
+            >
+              <Menu className="w-7 h-7" />
+            </button>
 
-              <Link
-                href="/profile"
-                onClick={onCloseMobile}
-                className="flex items-center gap-2 min-w-0 flex-1 pl-1 group cursor-pointer"
-                title={`Ver Perfil & Administração (${displayName})`}
-              >
-                {currentUser?.image && (
-                  <img
-                    src={currentUser.image}
-                    alt={displayName}
-                    className="w-7 h-7 rounded-full object-cover shrink-0 ring-1 ring-[#3d2c49]"
-                  />
-                )}
-                <span className="text-[21px] text-[#f3f0f5] group-hover:text-[#f59e0b] font-semibold tracking-tight truncate leading-tight transition-colors">
-                  {displayName}
-                </span>
-              </Link>
-
-              <button
-                type="button"
-                onClick={onCloseMobile}
-                className="md:hidden w-8 h-8 rounded-lg bg-[#241b2c] flex items-center justify-center text-[#998e9f] hover:text-[#f3f0f5] shrink-0"
-              >
-                <X className="w-5 h-5" />
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={onCloseMobile}
+              className="md:hidden w-8 h-8 rounded-lg bg-[#241b2c] flex items-center justify-center text-[#998e9f] hover:text-[#f3f0f5] shrink-0"
+              title="Fechar Menu"
+            >
+              <X className="w-5 h-5" />
+            </button>
           </div>
         ) : (
           <div className="flex flex-col items-center">

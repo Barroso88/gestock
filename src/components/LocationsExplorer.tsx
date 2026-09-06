@@ -23,6 +23,7 @@ import { QuickStockAdjuster } from "./QuickStockAdjuster";
 import { SearchModal } from "./SearchModal";
 import { ConfirmationModal } from "./ConfirmationModal";
 import { HomeBoxSidebar } from "./HomeBoxSidebar";
+import { UserHeaderBadge } from "./UserHeaderBadge";
 import { deleteProduct, deleteLocation } from "@/actions/inventory-actions";
 import { useRouter } from "next/navigation";
 
@@ -247,14 +248,17 @@ export function LocationsExplorer({
               </div>
             </div>
 
-            <button
-              type="button"
-              onClick={() => handleOpenAddLocation(null)}
-              className="px-3.5 py-2 bg-gradient-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] active:scale-95 text-[#151016] font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-md shadow-[#f59e0b]/20 transition-all cursor-pointer"
-            >
-              <Plus className="w-4 h-4 stroke-[3] text-black" />
-              <span>Novo Local</span>
-            </button>
+            <div className="flex items-center gap-2 sm:gap-3">
+              <button
+                type="button"
+                onClick={() => handleOpenAddLocation(null)}
+                className="px-3.5 py-2 bg-gradient-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] active:scale-95 text-[#151016] font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-md shadow-[#f59e0b]/20 transition-all cursor-pointer"
+              >
+                <Plus className="w-4 h-4 stroke-[3] text-black" />
+                <span>Novo Local</span>
+              </button>
+              <UserHeaderBadge />
+            </div>
           </div>
         </header>
 

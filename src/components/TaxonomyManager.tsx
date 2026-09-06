@@ -14,6 +14,7 @@ import { ProductFormModal } from "./ProductFormModal";
 import { SearchModal } from "./SearchModal";
 import { ConfirmationModal } from "./ConfirmationModal";
 import { HomeBoxSidebar } from "./HomeBoxSidebar";
+import { UserHeaderBadge } from "./UserHeaderBadge";
 import {
   createCategory,
   deleteCategory,
@@ -149,6 +150,8 @@ export function TaxonomyManager({ locations, categories }: TaxonomyManagerProps)
                 </div>
               </div>
             </div>
+
+            <UserHeaderBadge />
           </div>
         </header>
 
