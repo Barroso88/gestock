@@ -36,7 +36,7 @@ export function UserHeaderBadge() {
   return (
     <Link
       href="/profile"
-      className="flex items-center gap-2 pl-1.5 pr-2.5 py-1 rounded-xl hover:bg-[#241b2c] border border-transparent hover:border-[#3d2c49] transition-all group cursor-pointer shrink-0"
+      className="flex items-center gap-2 p-0.5 sm:pl-1.5 sm:pr-2.5 sm:py-1 rounded-xl hover:bg-[#241b2c] border border-transparent hover:border-[#3d2c49] transition-all group cursor-pointer shrink-0"
       title={`Perfil & Administração (${displayName})`}
     >
       {currentUser?.image ? (

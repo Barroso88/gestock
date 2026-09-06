@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-x: clip;
+  position: relative;
+  -webkit-text-size-adjust: 100%;
+}
+
 @layer base {
   /* 1. Definições dos 10 Temas Visuais */
   :root,

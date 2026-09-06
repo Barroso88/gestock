@@ -306,48 +306,48 @@ export function ProfileManager({
         onOpenSearchModal={() => setIsSearchModalOpen(true)}
       />
 
-      {/* Conteúdo Principal com margem dinâmica */}
+      {/* Conteúdo com margem adaptativa */}
       <div
-        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-16 ${
+        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-16 w-full max-w-full min-w-0 overflow-x-hidden ${
           isSidebarExpanded ? "md:ml-60" : "md:ml-16"
         }`}
       >
         {/* Cabeçalho da Página */}
-        <header className="sticky top-0 z-30 bg-[#19131d]/95 backdrop-blur-md border-b border-[#2b2233] px-4 py-3">
-          <div className="max-w-5xl mx-auto flex items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
+        <header className="sticky top-0 z-30 bg-[#19131d]/95 backdrop-blur-md border-b border-[#2b2233] px-3 sm:px-4 py-2.5 sm:py-3 w-full max-w-full min-w-0">
+          <div className="max-w-5xl mx-auto flex items-center justify-between gap-2 min-w-0">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               <button
                 type="button"
                 onClick={toggleSidebar}
-                className="md:hidden w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+                className="md:hidden w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shrink-0"
                 title="Expandir Menu Lateral"
               >
                 <Menu className="w-7 h-7" />
               </button>
 
-              <div className="flex items-center gap-2.5">
+              <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
                 <div
-                  className="w-9 h-9 rounded-xl border border-[#3d2c49] flex items-center justify-center font-bold text-sm shadow-sm"
+                  className="w-8 sm:w-9 h-8 sm:h-9 rounded-xl border border-[#3d2c49] flex items-center justify-center font-bold text-sm shadow-sm shrink-0"
                   style={{ backgroundColor: `${avatarColor}20`, color: avatarColor }}
                 >
-                  <User className="w-5 h-5" />
+                  <User className="w-4 sm:w-5 h-4 sm:h-5" />
                 </div>
-                <div>
-                  <h1 className="text-base font-bold text-[#f3f0f5] leading-tight">
+                <div className="min-w-0">
+                  <h1 className="text-sm sm:text-base font-bold text-[#f3f0f5] leading-tight truncate">
                     Perfil & Administração
                   </h1>
-                  <p className="text-[11px] text-[#998e9f]">
+                  <p className="text-[11px] text-[#998e9f] hidden sm:block truncate">
                     Gestão de conta, cópias de segurança e segurança
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <button
                 type="button"
                 onClick={() => setIsScreenLocked(true)}
-                className="px-3 py-1.5 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-xs font-semibold text-[#baaebf] hover:text-[#f3f0f5] flex items-center gap-1.5 transition-colors cursor-pointer"
+                className="p-2 sm:px-3 sm:py-1.5 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-xs font-semibold text-[#baaebf] hover:text-[#f3f0f5] flex items-center gap-1.5 transition-colors cursor-pointer shrink-0"
                 title="Bloquear Ecrã Imediatamente"
               >
                 <Lock className="w-3.5 h-3.5" />
@@ -359,8 +359,8 @@ export function ProfileManager({
         </header>
 
         {/* Barra de Separadores de Navegação */}
-        <div className="max-w-5xl mx-auto w-full px-4 pt-5 pb-3">
-          <div className="flex items-center gap-1 bg-[#1e1723] p-1.5 rounded-2xl border border-[#2b2233] overflow-x-auto custom-scrollbar">
+        <div className="max-w-5xl mx-auto w-full max-w-full min-w-0 px-3 sm:px-4 pt-4 sm:pt-5 pb-3">
+          <div className="flex items-center gap-1 bg-[#1e1723] p-1.5 rounded-2xl border border-[#2b2233] overflow-x-auto max-w-full custom-scrollbar">
             <button
               type="button"
               onClick={() => setActiveTab("account")}
@@ -403,7 +403,7 @@ export function ProfileManager({
         </div>
 
         {/* Conteúdo dos Separadores */}
-        <main className="max-w-5xl mx-auto w-full px-4 space-y-6 flex-1">
+        <main className="max-w-5xl mx-auto w-full max-w-full min-w-0 px-3 sm:px-4 space-y-6 flex-1">
           {/* ========================================================================= */}
           {/* SEPARADOR 1: CONTA & PERFIL */}
           {/* ========================================================================= */}

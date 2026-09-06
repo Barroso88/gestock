@@ -118,33 +118,33 @@ export function TaxonomyManager({ locations, categories }: TaxonomyManagerProps)
 
       {/* Conteúdo com margem adaptativa */}
       <div
-        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-12 ${
+        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-12 w-full max-w-full min-w-0 overflow-x-hidden ${
           isSidebarExpanded ? "md:ml-60" : "md:ml-16"
         }`}
       >
         {/* Header Estilo HomeBox */}
-        <header className="sticky top-0 z-30 bg-[#19131d]/95 backdrop-blur-md border-b border-[#2b2233] px-4 py-3">
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-3">
+        <header className="sticky top-0 z-30 bg-[#19131d]/95 backdrop-blur-md border-b border-[#2b2233] px-3 sm:px-4 py-2.5 sm:py-3 w-full max-w-full min-w-0">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-2 min-w-0">
+            <div className="flex items-center gap-2 sm:gap-3 min-w-0">
               {/* Botão dos 3 Traços */}
               <button
                 type="button"
                 onClick={toggleSidebar}
-                className="md:hidden w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+                className="md:hidden w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shrink-0"
                 title="Expandir / Comprimir Menu Lateral"
               >
                 <Menu className="w-7 h-7" />
               </button>
 
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#241b2c] border border-[#3d2c49] flex items-center justify-center text-[#f59e0b]">
+              <div className="flex items-center gap-2 sm:gap-2.5 min-w-0">
+                <div className="w-8 h-8 rounded-lg bg-[#241b2c] border border-[#3d2c49] flex items-center justify-center text-[#f59e0b] shrink-0">
                   <Tag className="w-4 h-4" />
                 </div>
-                <div>
-                  <h1 className="text-base font-bold text-[#f3f0f5]">
+                <div className="min-w-0">
+                  <h1 className="text-sm sm:text-base font-bold text-[#f3f0f5] truncate">
                     Categorias
                   </h1>
-                  <p className="text-[11px] text-[#998e9f]">
+                  <p className="text-[11px] text-[#998e9f] hidden sm:block truncate">
                     Gestão e personalização das categorias de artigos ({categories.length})
                   </p>
                 </div>
@@ -155,7 +155,7 @@ export function TaxonomyManager({ locations, categories }: TaxonomyManagerProps)
           </div>
         </header>
 
-        <main className="max-w-4xl mx-auto w-full px-4 pt-4 flex-1 space-y-5">
+        <main className="max-w-4xl mx-auto w-full max-w-full min-w-0 px-3 sm:px-4 pt-4 flex-1 space-y-5">
           {/* Formulário Nova Categoria */}
           <form
             onSubmit={handleAddCategory}

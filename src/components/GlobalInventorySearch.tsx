@@ -52,31 +52,32 @@ export function GlobalInventorySearch({ onSelectProduct, onScanClick }: GlobalIn
   return (
     <div className="w-full space-y-2 relative">
       {/* Barra de Pesquisa Proeminente estilo HomeBox */}
-      <div className="relative flex items-center gap-1.5">
-        <div className="relative flex-1">
+      <div className="relative flex items-center gap-1.5 min-w-0">
+        <div className="relative flex-1 min-w-0">
+          <Search className="w-3.5 h-3.5 text-[#84778b] absolute left-3 top-1/2 -translate-y-1/2 sm:hidden pointer-events-none" />
           <input
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             placeholder="Pesquisar..."
-            className="w-full pl-4 pr-10 py-2.5 rounded-xl bg-[#1e1723] border border-[#2b2233] text-sm text-[#f3f0f5] placeholder:text-[#84778b] focus:outline-hidden focus:border-[#f59e0b] focus:ring-1 focus:ring-[#f59e0b] transition-all"
+            className="w-full pl-8 sm:pl-4 pr-8 sm:pr-10 py-1.5 sm:py-2.5 rounded-xl bg-[#1e1723] border border-[#2b2233] text-xs sm:text-sm text-[#f3f0f5] placeholder:text-[#84778b] focus:outline-hidden focus:border-[#f59e0b] focus:ring-1 focus:ring-[#f59e0b] transition-all"
           />
           {query && (
             <button
               type="button"
               onClick={() => setQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#998e9f] hover:text-[#f3f0f5] p-1 rounded-md hover:bg-[#2b2233] transition-colors"
+              className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-[#998e9f] hover:text-[#f3f0f5] p-1 rounded-md hover:bg-[#2b2233] transition-colors"
             >
-              <X className="w-4 h-4" />
+              <X className="w-3.5 h-3.5" />
             </button>
           )}
         </div>
 
-        {/* Botão de Pesquisa Âmbar do HomeBox */}
+        {/* Botão de Pesquisa Âmbar do HomeBox (visível em tablet/desktop) */}
         <button
           type="button"
           onClick={() => {}}
-          className="w-10 h-10 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] active:scale-95 text-[#151016] flex items-center justify-center shrink-0 transition-all cursor-pointer shadow-md shadow-[#f59e0b]/20"
+          className="hidden sm:flex w-10 h-10 rounded-xl bg-[#f59e0b] hover:bg-[#d97706] active:scale-95 text-[#151016] items-center justify-center shrink-0 transition-all cursor-pointer shadow-md shadow-[#f59e0b]/20"
           title="Pesquisar"
         >
           <Search className="w-5 h-5 stroke-[2.5]" />

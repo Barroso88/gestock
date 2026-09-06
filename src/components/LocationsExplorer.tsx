@@ -215,54 +215,55 @@ export function LocationsExplorer({
 
       {/* Conteúdo com margem flexível */}
       <div
-        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-12 ${
+        className={`min-h-screen flex flex-col transition-all duration-300 ease-in-out pb-12 w-full max-w-full min-w-0 overflow-x-hidden ${
           isSidebarExpanded ? "md:ml-60" : "md:ml-16"
         }`}
       >
         {/* Top Header Estilo HomeBox */}
-        <header className="sticky top-0 z-30 bg-[#19131d]/95 backdrop-blur-md border-b border-[#2b2233] px-4 py-3">
-          <div className="max-w-4xl mx-auto flex items-center justify-between">
-            <div className="flex items-center gap-3">
+        <header className="sticky top-0 z-30 bg-[#19131d]/95 backdrop-blur-md border-b border-[#2b2233] px-2.5 sm:px-4 py-2 sm:py-3 w-full">
+          <div className="max-w-4xl mx-auto flex items-center justify-between gap-1.5 sm:gap-3 min-w-0">
+            <div className="flex items-center gap-2 shrink-0">
               {/* Botão dos 3 Traços */}
               <button
                 type="button"
                 onClick={toggleSidebar}
-                className="md:hidden w-10 h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95"
+                className="md:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] flex items-center justify-center transition-colors cursor-pointer active:scale-95 shrink-0"
                 title="Expandir / Comprimir Menu Lateral"
               >
-                <Menu className="w-7 h-7" />
+                <Menu className="w-5 h-5 sm:w-7 sm:h-7" />
               </button>
 
-              <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-[#241b2c] border border-[#3d2c49] flex items-center justify-center text-[#f59e0b]">
+              <div className="flex items-center gap-2">
+                <div className="w-8 h-8 rounded-lg bg-[#241b2c] border border-[#3d2c49] flex items-center justify-center text-[#f59e0b] shrink-0">
                   <FolderTree className="w-4 h-4" />
                 </div>
                 <div>
-                  <h1 className="text-base font-bold text-[#f3f0f5]">
-                    Localizações de Armazenamento
+                  <h1 className="text-sm sm:text-base font-bold text-[#f3f0f5]">
+                    Localizações
                   </h1>
-                  <p className="text-[11px] text-[#998e9f]">
+                  <p className="text-[10px] sm:text-[11px] text-[#998e9f] hidden xs:block sm:block">
                     Gestão hierárquica e navegação por divisão
                   </p>
                 </div>
               </div>
             </div>
 
-            <div className="flex items-center gap-2 sm:gap-3">
+            <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
               <button
                 type="button"
                 onClick={() => handleOpenAddLocation(null)}
-                className="px-3.5 py-2 bg-gradient-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] active:scale-95 text-[#151016] font-bold text-xs rounded-xl flex items-center gap-1.5 shadow-md shadow-[#f59e0b]/20 transition-all cursor-pointer"
+                className="px-2.5 sm:px-3.5 py-2 bg-gradient-to-r from-[#f59e0b] to-[#d97706] hover:from-[#fbbf24] hover:to-[#f59e0b] active:scale-95 text-[#151016] font-bold text-xs rounded-xl flex items-center gap-1 sm:gap-1.5 shadow-md shadow-[#f59e0b]/20 transition-all cursor-pointer shrink-0"
+                title="Novo Local"
               >
-                <Plus className="w-4 h-4 stroke-[3] text-black" />
-                <span>Novo Local</span>
+                <Plus className="w-4 h-4 stroke-[3] text-black shrink-0" />
+                <span className="hidden sm:inline">Novo Local</span>
               </button>
               <UserHeaderBadge />
             </div>
           </div>
         </header>
 
-        <main className="max-w-4xl mx-auto w-full px-4 pt-5 flex-1 space-y-5">
+        <main className="max-w-4xl mx-auto w-full px-3 sm:px-4 pt-4 sm:pt-5 flex-1 space-y-5 min-w-0 overflow-x-hidden">
           {/* Árvore de Locais */}
           <section className="bg-[#1e1723] border border-[#2b2233] rounded-2xl p-4 space-y-3">
             <h2 className="text-xs font-semibold uppercase tracking-wider text-[#baaebf]">
