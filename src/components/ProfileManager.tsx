@@ -44,6 +44,7 @@ interface ProfileManagerProps {
     name?: string | null;
     image?: string | null;
     role: string;
+    createdAt?: string | Date;
   } | null;
 }
 
@@ -458,7 +459,15 @@ export function ProfileManager({
                   <p className="text-sm text-[#998e9f]">{userEmail}</p>
                   <p className="text-xs text-[#84778b] flex items-center justify-center md:justify-start gap-1.5 pt-1">
                     <Clock className="w-3.5 h-3.5 text-[#f59e0b]" />
-                    <span>Membro e Administrador do Gestock desde 2024</span>
+                    <span>
+                      Membro e Administrador do Gestock desde{" "}
+                      {currentUser?.createdAt
+                        ? new Date(currentUser.createdAt).toLocaleDateString("pt-PT", {
+                            month: "long",
+                            year: "numeric",
+                          })
+                        : new Date().getFullYear()}
+                    </span>
                   </p>
                 </div>
               </div>
