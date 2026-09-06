@@ -2,7 +2,7 @@ import React from "react";
 import { isGoogleAuthConfigured, getCurrentUser } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { ShieldCheck, Info, Sparkles, ArrowRight } from "lucide-react";
+import { ShieldCheck, Info, Sparkles } from "lucide-react";
 import { GoogleLoginClient } from "./GoogleLoginClient";
 
 export const dynamic = "force-dynamic";

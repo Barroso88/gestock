@@ -2,7 +2,7 @@
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Sparkles, ArrowRight, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 
 interface GoogleLoginClientProps {
   isConfigured: boolean;
@@ -11,36 +11,10 @@ interface GoogleLoginClientProps {
 export function GoogleLoginClient({ isConfigured }: GoogleLoginClientProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
-  const [isDemoLoading, setIsDemoLoading] = useState(false);
 
   const handleGoogleLogin = () => {
     setIsLoading(true);
     window.location.href = "/api/auth/google";
-  };
-
-  const handleDemoLogin = async () => {
-    setIsDemoLoading(true);
-    try {
-      const res = await fetch("/api/auth/demo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: "André Barroso",
-          email: "andre.barroso@gmail.com",
-        }),
-      });
-
-      if (res.ok) {
-        router.push("/");
-        router.refresh();
-      } else {
-        alert("Falha ao iniciar sessão de teste.");
-      }
-    } catch {
-      alert("Erro ao conectar à API.");
-    } finally {
-      setIsDemoLoading(false);
-    }
   };
 
   return (
@@ -49,7 +23,7 @@ export function GoogleLoginClient({ isConfigured }: GoogleLoginClientProps) {
       <button
         type="button"
         onClick={handleGoogleLogin}
-        disabled={isLoading || isDemoLoading}
+        disabled={isLoading}
         className="w-full py-3.5 px-4 rounded-2xl bg-white hover:bg-slate-100 text-slate-800 font-bold text-sm flex items-center justify-center gap-3 transition-all shadow-md active:scale-95 cursor-pointer disabled:opacity-60"
       >
         {isLoading ? (
@@ -76,32 +50,6 @@ export function GoogleLoginClient({ isConfigured }: GoogleLoginClientProps) {
         )}
         <span>{isLoading ? "A ligar à Google..." : "Continuar com o Google"}</span>
       </button>
-
-      {/* Opção de Teste Rápido se as chaves ainda não estiverem no .env */}
-      <div className="pt-2">
-        <div className="relative flex py-2 items-center">
-          <div className="flex-grow border-t border-[#2b2233]" />
-          <span className="flex-shrink mx-3 text-[11px] uppercase tracking-wider text-[#84778b] font-bold">
-            ou em ambiente local
-          </span>
-          <div className="flex-grow border-t border-[#2b2233]" />
-        </div>
-
-        <button
-          type="button"
-          onClick={handleDemoLogin}
-          disabled={isLoading || isDemoLoading}
-          className="w-full mt-2 py-3 px-4 rounded-2xl bg-[#241b2c] hover:bg-[#2d2237] border border-[#3d2c49] text-[#baaebf] hover:text-[#f3f0f5] font-semibold text-xs flex items-center justify-center gap-2 transition-all active:scale-95 cursor-pointer disabled:opacity-60"
-        >
-          {isDemoLoading ? (
-            <Loader2 className="w-4 h-4 animate-spin text-[#f59e0b]" />
-          ) : (
-            <Sparkles className="w-4 h-4 text-[#f59e0b]" />
-          )}
-          <span>Entrar com Conta de Teste (André Barroso)</span>
-          <ArrowRight className="w-3.5 h-3.5" />
-        </button>
-      </div>
     </div>
   );
 }
