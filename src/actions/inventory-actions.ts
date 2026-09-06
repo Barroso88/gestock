@@ -44,6 +44,7 @@ export async function createProduct(data: {
     }
 
     revalidatePath("/");
+    revalidatePath("/inventory");
     revalidatePath("/locations");
     return { success: true, product };
   } catch (error: any) {
@@ -107,6 +108,7 @@ export async function updateProduct(
     }
 
     revalidatePath("/");
+    revalidatePath("/inventory");
     revalidatePath("/locations");
     return { success: true, product };
   } catch (error: any) {
@@ -138,6 +140,7 @@ export async function quickAdjustStock(id: string, delta: number, note?: string)
     });
 
     revalidatePath("/");
+    revalidatePath("/inventory");
     revalidatePath("/locations");
     return { success: true, quantity: newQty };
   } catch (error) {
@@ -150,6 +153,7 @@ export async function deleteProduct(id: string) {
   try {
     await prisma.product.delete({ where: { id } });
     revalidatePath("/");
+    revalidatePath("/inventory");
     revalidatePath("/locations");
     return { success: true };
   } catch (error) {
